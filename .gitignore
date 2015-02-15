@@ -1,0 +1,13 @@
+#object files
+obj
+*.o
+
+#binaries
+bin
+
+#resources
+resources
+
+#tools
+tools
+
