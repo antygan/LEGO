@@ -1,10 +1,13 @@
 #object files
-obj
+projects/obj
 *.o
 
 #binaries
-bin
+projects/bin
 
 #tools
 tools
+
+#resources
+resources
 
