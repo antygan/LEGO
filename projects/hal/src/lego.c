@@ -10,9 +10,9 @@ LEGO_EV3_SYSTEM_RESULT lego_ev3_reset_device(void) {
 	/* initialize lego motors */
 	for(int i=0; i < LEGO_EV3_NUM_MOTOR_PORTS; i++) {
 		lego_ev3.motor[i].motor_handle = LEGO_EV3_INVALID_FILE_HANDLE;
-		lego_ev3.motor[i].command[MOTOR_TYPE] = opOUTPUT_RESET;
-		lego_ev3.motor[i].command[MOTOR_PORT] = LEGO_EV3_MOTOR_PORT_UNKNOWN;
-		lego_ev3.motor[i].command[MOTOR_SPEED] = 0; 	
+		lego_ev3.motor[i].command[MOTOR_COMMAND] = opOUTPUT_RESET;
+		lego_ev3.motor[i].command[MOTOR_PORT] = 1 << i;
+		lego_ev3.motor[i].command[MOTOR_SPEED] = 0; 
 	}
 
 	return result;
@@ -73,6 +73,10 @@ LEGO_EV3_SYSTEM_RESULT lego_ev3_set_motor_config(const LEGO_EV3_MOTOR_CONFIG mot
 	/* set the speed */
 	lego_ev3.motor[port].motor_command[MOTOR_SPEED] =
 		 motor_config.motor_command[MOTOR_SPEED] % LEGO_EV3_MAX_MOTOR_SPEED;
+
+	/* write the configuration */
+	write(lego_ev3.motor[motor_port].motor_handle,
+		 lego_ev3.motor[motor_port].motor_command, 3);
 	
 exit:
 	return result;
@@ -82,11 +86,16 @@ exit:
 LEGO_EV3_SYSTEM_RESULT lego_ev3_get_motor_config(const LEGO_EV3_MOTOR_PORT motor_port,
 				LEGO_EV3_MOTOR_CONFIG* motor_config) {
 	LEGO_EV3_SYSTEM_RESULT result = LEGO_EV3_SUCCESS;
-	motor_config = NULL;
 
 	if ((motor_port >= LEGO_EV3_MOTOR_PORT_A) &&
 		(motor_port < LEGO_EV3_NUM_MOTOR_PORTS)) {
-		motor_config = lego_ev3.motor[motor_port];
+		memcpy(motor_config, lego_ev3.motor[motor_port],
+				 sizeof(LEGO_EV3_MOTOR_CONFIG));
+		if (motor_config.motor_command[MOTOR_PORT] == 1 << motor_port) {
+			motor_config.motor_command[MOTOR_PORT] = motor_port;
+		} else {
+			result = LEGO_EV3_UNKNOWN_ERROR;
+		}
 	} else {
 		result = LEGO_EV3_UNKNOWN_PORT;
 	}
@@ -102,6 +111,14 @@ LEGO_EV3_SYSTEM_RESULT lego_ev3_set_motor_speed(const LEGO_EV3_MOTOR_PORT motor_
 		(motor_port < LEGO_EV3_NUM_MOTOR_PORTS)) {
 		lego_ev3.motor[motor_port].command[MOTOR_SPEED] =
 					 motor_speed % LEGO_EV3_MAX_MOTOR_SPEED;
+		if (motor_speed != 0) {
+			lego_ev3.motor[motor_port].command[MOTOR_COMMAND] = opOUTPUT_START;
+		} else {
+			lego_ev3.motor[motor_port].command[MOTOR_COMMAND] = opOUTPUT_STOP;
+		}
+
+		write(lego_ev3.motor[motor_port].motor_handle,
+			 lego_ev3.motor[motor_port].motor_command, 2);
 	} else {
 		result = LEGO_EV3_UNKNOWN_PORT;
 	}

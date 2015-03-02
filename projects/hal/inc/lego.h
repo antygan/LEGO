@@ -9,7 +9,7 @@
 #define LEGO_EV3_MIN_MOTOR_SPEED   0
 
 typedef enum __LEGO_EV3_MOTOR_COMMAND_INDEX {
-	MOTOR_TYPE,
+	MOTOR_COMMAND,
 	MOTOR_PORT,
 	MOTOR_SPEED,
 	MOTOR_COMMAND_INDEX
@@ -43,7 +43,9 @@ typedef struct _LEGO_EV3_MOTOR_CONFIG {
 	LEGO_EV3_MOTOR_COMMAND motor_command;
 } LEGO_EV3_MOTOR_CONFIG;
 
-#include "lego_ev3_private.h"
+typedef struct _LEGO_EV3_DEVICE {
+	LEGO_EV3_MOTOR_CONFIG motor[LEGO_NUM_MOTOR_PORTS];	
+} LEGO_EV3_DEVICE; 
 
 
 LEGO_EV3_SYSTEM_RESULT lego_ev3_reset_device(void);
@@ -57,7 +59,7 @@ LEGO_EV3_SYSTEM_RESULT lego_ev3_set_motor_config(const LEGO_EV3_MOTOR_CONFIG mot
 LEGO_EV3_SYSTEM_RESULT lego_ev3_get_motor_config(const LEGO_EV3_MOTOR_PORT motor_port,
 				LEGO_EV3_MOTOR_CONFIG* motor_config); 
 
-LEGO_EV3_SYSTEM_RESULT lego_ev3_set_motor_speed(const unsigned int motor_index,
-				const char motor_speed);
+LEGO_EV3_SYSTEM_RESULT lego_ev3_set_motor_speed(const LEGO_EV3_MOTOR_PORT motor_port,
+				const char motor_speed); 
 
 #endif /* __LEGO_EV3_H */
