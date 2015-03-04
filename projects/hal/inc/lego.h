@@ -8,12 +8,15 @@
 #define LEGO_EV3_MAX_MOTOR_SPEED   100
 #define LEGO_EV3_MIN_MOTOR_SPEED   0
 
+typedef char bool;
+#define false 0;
+#define true !false 
 typedef enum __LEGO_EV3_MOTOR_COMMAND_INDEX {
 	MOTOR_COMMAND,
 	MOTOR_PORT,
 	MOTOR_SPEED,
-	MOTOR_COMMAND_INDEX
-};
+	MOTOR_COMMAND_RANGE
+} LEGO_EV3_MOTOR_COMMAND_INDEX;
 
 typedef enum _LEGO_EV3_MOTOR_PORTS {
 	LEGO_EV3_MOTOR_PORT_A,
@@ -34,17 +37,16 @@ typedef enum _LEGO_EV3_SYSTEM_ERRORS {
 
 typedef LEGO_EV3_SYSTEM_ERROR LEGO_EV3_SYSTEM_RESULT;
 
-typedef struct _LEGO_EV3_MOTOR_COMMAND {
-	char command[MOTOR_COMMAND_INDEX];
-} LEGO_EV3_MOTOR_COMMAND;
-
 typedef struct _LEGO_EV3_MOTOR_CONFIG {
 	int motor_handle;
-	LEGO_EV3_MOTOR_COMMAND motor_command;
+	char motor_output;
+	char motor_speed;
+	LEGO_EV3_MOTOR_PORT motor_port;
+	bool motor_on;
 } LEGO_EV3_MOTOR_CONFIG;
 
 typedef struct _LEGO_EV3_DEVICE {
-	LEGO_EV3_MOTOR_CONFIG motor[LEGO_NUM_MOTOR_PORTS];	
+	LEGO_EV3_MOTOR_CONFIG motor[LEGO_EV3_NUM_MOTOR_PORTS];	
 } LEGO_EV3_DEVICE; 
 
 

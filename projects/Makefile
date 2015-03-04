@@ -11,7 +11,7 @@
 ########################################################################
 
 #directories
-SDIR=app/src
+SDIR=.
 ODIR=obj
 EDIR=bin
 LDIR=lib
@@ -24,12 +24,12 @@ LIBS=
 Q=@
 
 
-SOURCES=hello_world.c
+SOURCES=app/src/runner.c hal/src/lego.c
 OBJECTS=$(patsubst %, $(ODIR)/%, $(SOURCES:.c=.o))
 INCLUDE=-Iinc -Iapp/inc -Ihal/inc
 
 #app name
-EXECUTABLE=$(EDIR)/hello
+EXECUTABLE=$(EDIR)/runner
 
 all: $(EXECUTABLE)
 
