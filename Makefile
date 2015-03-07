@@ -40,5 +40,5 @@ $(EXECUTABLE): $(OBJECTS)
 %.o: $(SDIR)/%.c
 		$(Q) $(CC) $(INCLUDE) $(CFLAGS) $< -o $@
 
-clean: $(OBJECTS) $(EXECUTABLE)
-		$(Q) rm -f $^ $(EXECUTABLE)
+clean: 
+		$(Q) rm -f $(OBJECTS) $(EXECUTABLE)
