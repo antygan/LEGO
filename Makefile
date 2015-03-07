@@ -12,7 +12,6 @@
 
 #directories
 SDIR=.
-ODIR=obj
 EDIR=bin
 LDIR=lib
 
@@ -25,7 +24,7 @@ Q=@
 
 
 SOURCES=app/src/runner.c hal/src/lego.c
-OBJECTS=$(patsubst %, $(ODIR)/%, $(SOURCES:.c=.o))
+OBJECTS=$(patsubst %.c, %.o, $(SOURCES))
 INCLUDE=-Iinc -Iapp/inc -Ihal/inc
 
 #app name
@@ -38,7 +37,7 @@ $(EXECUTABLE): $(OBJECTS)
 		$(Q) $(CC) $(LDFLAGS) -o $@ $^ $(LIBS)
 
 #compile all source files under $(SRC)    
-$(ODIR)/%.o: $(SDIR)/%.c
+%.o: $(SDIR)/%.c
 		$(Q) $(CC) $(INCLUDE) $(CFLAGS) $< -o $@
 
 clean: $(OBJECTS) $(EXECUTABLE)
