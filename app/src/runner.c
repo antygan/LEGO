@@ -1,6 +1,7 @@
+#include <stdio.h>
 #include "lego.h"
-#include <fcntl.h>  //open, close
 
+extern LEGO_EV3_DEVICE lego_ev3;
 int main() {
 	
 	int ret_val = 0;
@@ -21,10 +22,10 @@ int main() {
 	lego_ev3_get_motor_config(LEGO_EV3_MOTOR_PORT_A, &motor_config_left);
 	lego_ev3_get_motor_config(LEGO_EV3_MOTOR_PORT_C, &motor_config_right);
 
+
 	/* start the motors */
 	lego_ev3_set_motor_speed(LEGO_EV3_MOTOR_PORT_A, 30);	
 	lego_ev3_set_motor_speed(LEGO_EV3_MOTOR_PORT_D, 30);	
-	
 	sleep(2);
 
 	lego_ev3_set_motor_speed(LEGO_EV3_MOTOR_PORT_A, 0);	

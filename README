@@ -1,0 +1,17 @@
+The project provides low level hardware drivers to access EV3 sensors and actuators.
+It also includes some example applications.
+
+Assumptions:
+1> Used development environment is linux.
+2> The tools require to be executed in bash environment.
+
+Requirements:
+1> ARM cross compiler for EV3
+2> The setup environment expects the following linux utilities to be installed
+	> expect
+	> pv
+	> sshpass
+
+References:
+1> http://www.robotnav.com/ev3/
+
