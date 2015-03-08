@@ -20,7 +20,11 @@ CC=arm-none-linux-gnueabi-gcc
 CFLAGS=-c
 LDFLAGS=
 LIBS=
-Q=@
+#By default verbose is off
+V=0
+V_0=@
+V_1=
+Q=$(V_$(V))
 
 
 SOURCES=app/src/runner.c hal/src/lego.c
