@@ -1,0 +1,35 @@
+#ifndef __LEGO_EV3_SYSTEM_H
+#define __LEGO_EV3_SYSTEM_H
+
+/* system specific definations */
+typedef char bool;
+#define false 0;
+#define true !false 
+
+#define LEGO_EV3_INVALID_FILE_HANDLE	-1
+
+typedef enum _LEGO_EV3_SYSTEM_ERRORS {
+	/* Do not equalize to zero to avoid false negatives due to initilization */
+	LEGO_EV3_SUCCESS			= 0x1219,
+	LEGO_EV3_ERROR_INVALID_FILE_HANDLE	= -1,
+	LEGO_EV3_ERROR_UNKNOWN_PORT		= 0x122116,
+	LEGO_EV3_ERROR_UNKNOWN_ERROR		= 0x12215,
+} LEGO_EV3_SYSTEM_ERROR;
+
+typedef LEGO_EV3_SYSTEM_ERROR LEGO_EV3_SYSTEM_RESULT;
+
+typedef enum _LEGO_EV3_OUTPUT_PORT {
+	LEGO_EV3_OUTPUT_PORT_A,
+	LEGO_EV3_OUTPUT_PORT_B,
+	LEGO_EV3_OUTPUT_PORT_C,
+	LEGO_EV3_OUTPUT_PORT_D,
+} LEGO_EV3_OUTPUT_PORT;
+
+#define LEGO_EV3_NUM_OUTPUT_PORTS	 4
+#define	LEGO_EV3_UNKNOWN_OUTPUT_PORT	 0
+
+typedef enum _LEGO_EV3_SENSOR_TYPES {
+	LEGO_EV3_IR_SENSOR		= 33,
+} LEGO_EV3_SENSOR_TYPES;
+
+#endif

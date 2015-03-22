@@ -27,7 +27,7 @@ V_1=
 Q=$(V_$(V))
 
 
-SOURCES=app/src/runner.c hal/src/lego.c
+SOURCES=app/src/runner.c hal/src/lego.c hal/src/lego_ev3_motor.c
 OBJECTS=$(patsubst %.c, %.o, $(SOURCES))
 INCLUDE=-Iinc -Iapp/inc -Ihal/inc
 
